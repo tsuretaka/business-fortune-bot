@@ -264,9 +264,24 @@ if st.button("今日の指針を受け取る"):
             st.info(generated_text, icon="🔮")
             
             # Xシェアボタン作成
-            share_text = f"【Web版 ビズフォーチュン】\n今日の指針を受け取りました。\nテーマ: {pattern_data['base_theme']} / {pattern_data['focus_area']}\n\n#ビズフォーチュン #BusinessFortune"
+            # 公開されたアプリのURL（デプロイ後に確定したURLに書き換えてください）
+            app_url = "https://business-fortune-bot-8hk3jrrydpqrhwkytaqxa3.streamlit.app" 
+            
+            share_text = f"""
+【Web版 ビズフォーチュン】
+本日のテーマ: {pattern_data['base_theme']} / {pattern_data['focus_area']}
+
+ビジネスパーソンのための日次行動指針を受け取りました。
+あなたも今日の運勢をチェックしてみませんか？
+👇
+{app_url}
+
+#ビズフォーチュン #BusinessFortune
+"""
             # バックスラッシュを含む処理などはf-stringの外で行う
-            encoded_text = share_text.replace(' ', '%20').replace('\n', '%0A')
+            # URLエンコード処理（改行やスペースを適切に変換）
+            import urllib.parse
+            encoded_text = urllib.parse.quote(share_text.strip())
             share_url = f"https://twitter.com/intent/tweet?text={encoded_text}"
             
             # 純正APIを使用
