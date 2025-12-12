@@ -1,0 +1,452 @@
+[
+  {
+    "id": 1,
+    "archetype_id": 1,
+    "archetype_label": "チャレンジャー型",
+    "quote_ja": "いつも飢えたような向上心を持ち、少し無謀なくらい挑戦し続けよう。",
+    "author_ja": "スティーブ・ジョブズ",
+    "source_ja": "2005年 スタンフォード大学卒業式スピーチ",
+    "notes": "Stay hungry. Stay foolish.",
+    "category": "challenge"
+  },
+  {
+    "id": 2,
+    "archetype_id": 1,
+    "archetype_label": "チャレンジャー型",
+    "quote_ja": "変えざるを得なくなる前に、自分から変わり始めよう。",
+    "author_ja": "ジャック・ウェルチ",
+    "source_ja": "GE元CEOの名言として広く引用",
+    "notes": "Change before you have to.",
+    "category": "change"
+  },
+  {
+    "id": 3,
+    "archetype_id": 1,
+    "archetype_label": "チャレンジャー型",
+    "quote_ja": "本当に大事なことなら、たとえ勝算が低くてもやる価値がある。",
+    "author_ja": "イーロン・マスク",
+    "source_ja": "インタビューや講演での発言として知られる",
+    "notes": "When something is important enough, you do it even if the odds are not in your favor.",
+    "category": "challenge"
+  },
+  {
+    "id": 4,
+    "archetype_id": 1,
+    "archetype_label": "チャレンジャー型",
+    "quote_ja": "最初からすごくなくてもいい。すごくなりたければ、まず始めることだ。",
+    "author_ja": "ジグ・ジグラー",
+    "source_ja": "モチベーショナルスピーカーとしての名言集より",
+    "notes": "You don't have to be great to start, but you have to start to be great.",
+    "category": "action"
+  },
+  {
+    "id": 5,
+    "archetype_id": 1,
+    "archetype_label": "チャレンジャー型",
+    "quote_ja": "未来を予測する最良の方法は、未来を自ら創り出すことだ。",
+    "author_ja": "ピーター・ドラッカー",
+    "source_ja": "ドラッカーの名言として広く引用",
+    "notes": "The best way to predict the future is to create it.",
+    "category": "vision"
+  },
+  {
+    "id": 6,
+    "archetype_id": 2,
+    "archetype_label": "バランサー型",
+    "quote_ja": "リーダーシップとは、影響力そのものだ。それ以上でも、それ以下でもない。",
+    "author_ja": "ジョン・C・マクスウェル",
+    "source_ja": "『自分の中に眠るリーダー力に火をつけろ』などで知られる言葉",
+    "notes": "Leadership is influence, nothing more, nothing less.",
+    "category": "leadership"
+  },
+  {
+    "id": 7,
+    "archetype_id": 2,
+    "archetype_label": "バランサー型",
+    "quote_ja": "一番不満を持っているお客様ほど、あなたに一番大きな学びをくれる。",
+    "author_ja": "ビル・ゲイツ",
+    "source_ja": "マイクロソフト創業者の名言として知られる",
+    "notes": "Your most unhappy customers are your greatest source of learning.",
+    "category": "learning"
+  },
+  {
+    "id": 8,
+    "archetype_id": 2,
+    "archetype_label": "バランサー型",
+    "quote_ja": "人は自分を理解してくれる人に、心を開く。",
+    "author_ja": "ジョン・C・マクスウェル",
+    "source_ja": "リーダーシップに関する著作のエッセンスとして広く引用",
+    "notes": "People don't care how much you know until they know how much you care.",
+    "category": "relationship"
+  },
+  {
+    "id": 9,
+    "archetype_id": 2,
+    "archetype_label": "バランサー型",
+    "quote_ja": "感謝は、もっともシンプルで強力なマネジメントツールだ。",
+    "author_ja": "ケン・ブランチャード",
+    "source_ja": "『1分間マネジャー』等の思想に基づく要約表現",
+    "notes": "意訳ベースの要約。",
+    "category": "management"
+  },
+  {
+    "id": 10,
+    "archetype_id": 2,
+    "archetype_label": "バランサー型",
+    "quote_ja": "信頼は、言葉ではなく、一貫した行動から生まれる。",
+    "author_ja": "スティーブン・R・コヴィー",
+    "source_ja": "『7つの習慣』や『スピード・オブ・トラスト』の思想に基づく意訳",
+    "notes": "意訳ベースの要約。",
+    "category": "integrity"
+  },
+  {
+    "id": 11,
+    "archetype_id": 3,
+    "archetype_label": "クリエイター型",
+    "quote_ja": "創造性とは、楽しみながら知性を働かせることだ。",
+    "author_ja": "アルベルト・アインシュタイン",
+    "source_ja": "アインシュタインの名言として広く引用",
+    "notes": "Creativity is intelligence having fun.",
+    "category": "creativity"
+  },
+  {
+    "id": 12,
+    "archetype_id": 3,
+    "archetype_label": "クリエイター型",
+    "quote_ja": "失敗は、より賢い方法を学ぶための実験にすぎない。",
+    "author_ja": "トーマス・エジソン",
+    "source_ja": "発明家としての有名な言葉の意訳",
+    "notes": "I have not failed. I've just found 10,000 ways that won't work.",
+    "category": "learning"
+  },
+  {
+    "id": 13,
+    "archetype_id": 3,
+    "archetype_label": "クリエイター型",
+    "quote_ja": "アイデアは、外の世界と出会ったときに初めて価値を持つ。",
+    "author_ja": "セス・ゴーディン",
+    "source_ja": "マーケターとしての著作に基づく意訳",
+    "notes": "意訳ベース。",
+    "category": "action"
+  },
+  {
+    "id": 14,
+    "archetype_id": 3,
+    "archetype_label": "クリエイター型",
+    "quote_ja": "学びは、ため込むより使ってこそ価値になる。",
+    "author_ja": "ピーター・ドラッカー",
+    "source_ja": "知識労働に関するドラッカーの考え方の要約",
+    "notes": "意訳ベース。",
+    "category": "learning"
+  },
+  {
+    "id": 15,
+    "archetype_id": 3,
+    "archetype_label": "クリエイター型",
+    "quote_ja": "完璧な計画より、今日の小さな一歩がアイデアを現実に変える。",
+    "author_ja": "不詳",
+    "source_ja": "一般的なビジネス格言としての要約表現",
+    "notes": "汎用的なビジネス格言（オリジナル著者不詳）。",
+    "category": "action"
+  },
+  {
+    "id": 16,
+    "archetype_id": 4,
+    "archetype_label": "ビルダー型",
+    "quote_ja": "誰かがいま木陰で休んでいられるのは、ずっと昔に誰かが木を植えてくれたからだ。",
+    "author_ja": "ウォーレン・バフェット",
+    "source_ja": "投資家としての名言として引用",
+    "notes": "Someone is sitting in the shade today because someone planted a tree a long time ago.",
+    "category": "vision"
+  },
+  {
+    "id": 17,
+    "archetype_id": 4,
+    "archetype_label": "ビルダー型",
+    "quote_ja": "毎日の小さな習慣が、やがて圧倒的な差になる。",
+    "author_ja": "ジェームズ・クリア",
+    "source_ja": "『Atomic Habits』の内容を要約した意訳",
+    "notes": "意訳ベース。",
+    "category": "habits"
+  },
+  {
+    "id": 18,
+    "archetype_id": 4,
+    "archetype_label": "ビルダー型",
+    "quote_ja": "一貫性こそが、信頼と成果を同時に育てる。",
+    "author_ja": "スティーブン・R・コヴィー",
+    "source_ja": "『7つの習慣』の思想に基づく要約",
+    "notes": "意訳ベース。",
+    "category": "integrity"
+  },
+  {
+    "id": 19,
+    "archetype_id": 4,
+    "archetype_label": "ビルダー型",
+    "quote_ja": "大きな成功は、退屈な基本の積み重ねの上にしか建たない。",
+    "author_ja": "ジョン・ウッデン",
+    "source_ja": "バスケットボールコーチとしての哲学の要約",
+    "notes": "意訳ベース。",
+    "category": "basics"
+  },
+  {
+    "id": 20,
+    "archetype_id": 4,
+    "archetype_label": "ビルダー型",
+    "quote_ja": "石を積んでいるだけだと思うか、聖堂を建てていると思うかで、同じ仕事の意味は変わる。",
+    "author_ja": "不詳",
+    "source_ja": "ビジネスでよく引用される寓話の要約",
+    "notes": "三人のレンガ職人の寓話をベースにした意訳。",
+    "category": "perspective"
+  },
+  {
+    "id": 21,
+    "archetype_id": 5,
+    "archetype_label": "コミュニケーター型",
+    "quote_ja": "人は論理ではなく、感情で動き、あとから論理で正当化する。",
+    "author_ja": "ダニエル・カーネマン",
+    "source_ja": "行動経済学に関する知見の要約",
+    "notes": "意訳ベース。",
+    "category": "psychology"
+  },
+  {
+    "id": 22,
+    "archetype_id": 5,
+    "archetype_label": "コミュニケーター型",
+    "quote_ja": "相手に本当に影響を与えたければ、まず相手を理解することから始めなさい。",
+    "author_ja": "スティーブン・R・コヴィー",
+    "source_ja": "『7つの習慣』第5の習慣の要約",
+    "notes": "Seek first to understand, then to be understood.",
+    "category": "communication"
+  },
+  {
+    "id": 23,
+    "archetype_id": 5,
+    "archetype_label": "コミュニケーター型",
+    "quote_ja": "人は“正しい人”より、“自分をわかってくれる人”の話を聞く。",
+    "author_ja": "デール・カーネギー",
+    "source_ja": "『人を動かす』の思想を要約",
+    "notes": "意訳ベース。",
+    "category": "influence"
+  },
+  {
+    "id": 24,
+    "archetype_id": 5,
+    "archetype_label": "コミュニケーター型",
+    "quote_ja": "営業とは、売り込むことではなく“相手の役に立つこと”を一緒に見つける仕事だ。",
+    "author_ja": "不詳",
+    "source_ja": "一般的な営業哲学としての要約表現",
+    "notes": "オリジナル著者不詳。",
+    "category": "sales"
+  },
+  {
+    "id": 25,
+    "archetype_id": 5,
+    "archetype_label": "コミュニケーター型",
+    "quote_ja": "コミュニケーションの本質は、伝えることではなく、伝わるまで工夫することだ。",
+    "author_ja": "不詳",
+    "source_ja": "一般的なコミュニケーション格言",
+    "notes": "オリジナル著者不詳。",
+    "category": "communication"
+  },
+  {
+    "id": 26,
+    "archetype_id": 6,
+    "archetype_label": "プランナー型",
+    "quote_ja": "スケジュールにあるものに優先順位をつけるのではなく、優先すべきことを予定に入れなさい。",
+    "author_ja": "スティーブン・R・コヴィー",
+    "source_ja": "『7つの習慣』関連の言葉として知られる",
+    "notes": "The key is not to prioritize what's on your schedule, but to schedule your priorities.",
+    "category": "productivity"
+  },
+  {
+    "id": 27,
+    "archetype_id": 6,
+    "archetype_label": "プランナー型",
+    "quote_ja": "正しく物事を行うだけでなく、“正しいこと”を選んで行うことが大事だ。",
+    "author_ja": "ピーター・ドラッカー",
+    "source_ja": "効率と有効性に関する議論の要約",
+    "notes": "Efficiency is doing things right; effectiveness is doing the right things.",
+    "category": "effectiveness"
+  },
+  {
+    "id": 28,
+    "archetype_id": 6,
+    "archetype_label": "プランナー型",
+    "quote_ja": "計画が役に立たないこともある。しかし、計画するという行為はいつも役に立つ。",
+    "author_ja": "ドワイト・D・アイゼンハワー",
+    "source_ja": "戦略立案に関する名言として広く引用",
+    "notes": "Plans are nothing; planning is everything.",
+    "category": "planning"
+  },
+  {
+    "id": 29,
+    "archetype_id": 6,
+    "archetype_label": "プランナー型",
+    "quote_ja": "測定できないものは、改善することもできない。",
+    "author_ja": "ピーター・ドラッカー",
+    "source_ja": "マネジメントにおける指標の重要性を説いた言葉として引用",
+    "notes": "What gets measured gets managed. と関連。",
+    "category": "management"
+  },
+  {
+    "id": 30,
+    "archetype_id": 6,
+    "archetype_label": "プランナー型",
+    "quote_ja": "戦略とは、やらないことを決めることでもある。",
+    "author_ja": "マイケル・ポーター",
+    "source_ja": "競争戦略に関する議論からの要約",
+    "notes": "意訳ベース。",
+    "category": "strategy"
+  },
+  {
+    "id": 31,
+    "archetype_id": 7,
+    "archetype_label": "スペシャリスト型",
+    "quote_ja": "私はとりわけ才能があるわけではない。ただ、人より少し長く一つのことにとどまっているだけだ。",
+    "author_ja": "アルベルト・アインシュタイン",
+    "source_ja": "アインシュタインの名言として知られる",
+    "notes": "It's not that I'm so smart, it's just that I stay with problems longer.",
+    "category": "perseverance"
+  },
+  {
+    "id": 32,
+    "archetype_id": 7,
+    "archetype_label": "スペシャリスト型",
+    "quote_ja": "質は行為ではなく、習慣である。",
+    "author_ja": "アリストテレスとされることが多い",
+    "source_ja": "ビジネス書などで広く引用される格言",
+    "notes": "Quality is not an act, it is a habit.",
+    "category": "quality"
+  },
+  {
+    "id": 33,
+    "archetype_id": 7,
+    "archetype_label": "スペシャリスト型",
+    "quote_ja": "プロフェッショナルとは、“やりたいこと”ではなく、“やるべきこと”をやり続けられる人だ。",
+    "author_ja": "不詳",
+    "source_ja": "一般的なビジネス格言としての要約",
+    "notes": "オリジナル著者不詳。",
+    "category": "professionalism"
+  },
+  {
+    "id": 34,
+    "archetype_id": 7,
+    "archetype_label": "スペシャリスト型",
+    "quote_ja": "卓越性とは、毎日の小さな行動の積み重ねである。",
+    "author_ja": "不詳（アリストテレス由来の意訳として広く流布）",
+    "source_ja": "ビジネスやスポーツの名言集で広く引用",
+    "notes": "意訳ベース。",
+    "category": "excellence"
+  },
+  {
+    "id": 35,
+    "archetype_id": 7,
+    "archetype_label": "スペシャリスト型",
+    "quote_ja": "本当のスキルは、“できること”ではなく、“安定して再現できること”だ。",
+    "author_ja": "不詳",
+    "source_ja": "一般的なプロフェッショナル論としての要約",
+    "notes": "オリジナル著者不詳。",
+    "category": "skill"
+  },
+  {
+    "id": 36,
+    "archetype_id": 8,
+    "archetype_label": "リーダー型",
+    "quote_ja": "決めることは、守るものを選ぶことだ。",
+    "author_ja": "不詳",
+    "source_ja": "リーダーシップ一般論としての要約表現",
+    "notes": "オリジナル著者不詳。",
+    "category": "decision"
+  },
+  {
+    "id": 37,
+    "archetype_id": 8,
+    "archetype_label": "リーダー型",
+    "quote_ja": "部下はあなたの言うことではなく、あなたのやることを見ている。",
+    "author_ja": "ジョン・C・マクスウェル",
+    "source_ja": "リーダーシップ書籍で繰り返し語られるテーマの要約",
+    "notes": "意訳ベース。",
+    "category": "leadership"
+  },
+  {
+    "id": 38,
+    "archetype_id": 8,
+    "archetype_label": "リーダー型",
+    "quote_ja": "人を導く前に、まず自分自身を導かなければならない。",
+    "author_ja": "トマス・J・ワトソン Sr.",
+    "source_ja": "経営に関する名言として引用",
+    "notes": "意訳ベース。",
+    "category": "self-leadership"
+  },
+  {
+    "id": 39,
+    "archetype_id": 8,
+    "archetype_label": "リーダー型",
+    "quote_ja": "あなたが部下から欲しいと思う態度を、まず自分が示しなさい。",
+    "author_ja": "不詳",
+    "source_ja": "リーダーシップ一般論",
+    "notes": "オリジナル著者不詳。",
+    "category": "leadership"
+  },
+  {
+    "id": 40,
+    "archetype_id": 8,
+    "archetype_label": "リーダー型",
+    "quote_ja": "変化を恐れるのではなく、変化を味方につけるのがリーダーの仕事だ。",
+    "author_ja": "不詳",
+    "source_ja": "リーダーシップ一般論",
+    "notes": "オリジナル著者不詳。",
+    "category": "change-management"
+  },
+  {
+    "id": 41,
+    "archetype_id": 9,
+    "archetype_label": "サポーター型",
+    "quote_ja": "一人でできることは限られている。しかし、人を支えることで、はるかに大きな成果に関わることができる。",
+    "author_ja": "不詳",
+    "source_ja": "チームワーク一般論としての要約表現",
+    "notes": "オリジナル著者不詳。",
+    "category": "teamwork"
+  },
+  {
+    "id": 42,
+    "archetype_id": 9,
+    "archetype_label": "サポーター型",
+    "quote_ja": "チームにとっていちばん大事なのは、誰が点を取ったかではなく、チームが勝ったかどうかだ。",
+    "author_ja": "マイケル・ジョーダン",
+    "source_ja": "バスケットボールに関する名言として引用",
+    "notes": "意訳ベース。",
+    "category": "teamwork"
+  },
+  {
+    "id": 43,
+    "archetype_id": 9,
+    "archetype_label": "サポーター型",
+    "quote_ja": "自分の功績を主張しなくても、結果がすべてを語ってくれる。",
+    "author_ja": "不詳",
+    "source_ja": "裏方の働きに関する一般的な格言",
+    "notes": "オリジナル著者不詳。",
+    "category": "humility"
+  },
+  {
+    "id": 44,
+    "archetype_id": 9,
+    "archetype_label": "サポーター型",
+    "quote_ja": "感謝は、もっともシンプルで強力なモチベーションの源だ。",
+    "author_ja": "不詳",
+    "source_ja": "マネジメント一般論の要約",
+    "notes": "オリジナル著者不詳。",
+    "category": "gratitude"
+  },
+  {
+    "id": 45,
+    "archetype_id": 9,
+    "archetype_label": "サポーター型",
+    "quote_ja": "誰かの成功の舞台裏を支えた経験は、必ず自分の成長になって返ってくる。",
+    "author_ja": "不詳",
+    "source_ja": "一般的なキャリア論としての要約表現",
+    "notes": "オリジナル著者不詳。",
+    "category": "growth"
+  }
+]
