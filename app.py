@@ -179,6 +179,19 @@ st.markdown("""
         width: 0;
         z-index: 2;
     }
+    /* Streamlit標準UIの非表示化 */
+    header[data-testid="stHeader"] {
+        visibility: hidden;
+    }
+    .stDeployButton {
+        visibility: hidden;
+    }
+    footer {
+        visibility: hidden;
+    }
+    #MainMenu {
+        visibility: hidden;
+    }
 </style>
 """, unsafe_allow_html=True)
 
