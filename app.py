@@ -302,7 +302,7 @@ if should_run:
             st.info(generated_text, icon="🔮")
             
             # Xシェアボタン作成
-            base_app_url = "https://business-fortune-bot-8hk3jrrydpqrhwkytaqxa3.streamlit.app" 
+            base_app_url = "https://business-fortune-bot.streamlit.app" 
             result_url = f"{base_app_url}?id={account_id}&date={date_str}"
             
             share_text = f"""
