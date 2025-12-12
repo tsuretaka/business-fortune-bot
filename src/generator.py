@@ -40,7 +40,7 @@ def generate_fortune_message(api_key, context_data):
     以下の情報を元に、Botの返信メッセージを生成してください。
 
     account_name: {context_data['account_name']}
-    archetype: {context_data['archetype']}
+    today_archetype_mode: {context_data['archetype']} (注: これはユーザーの固定タイプではなく、今日意識すべき「振る舞いのモード」や「役割」です。「〇〇型のあなたは」と個人の性格として断定するのではなく、「今日は〇〇型のスイッチを入れて」「今の流れは〇〇型的なアプローチで」のように、あくまで「今日のスタンス」として扱ってください)
     base_theme: {context_data['base_theme']}
     focus_area: {context_data['focus_area']}
     action_style: {context_data['action_style']}
