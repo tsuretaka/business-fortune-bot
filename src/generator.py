@@ -48,7 +48,10 @@ def generate_fortune_message(api_key, context_data):
                 {"text": SYSTEM_PROMPT},
                 {"text": user_content}
             ]
-        }]
+        }],
+        "generationConfig": {
+            "temperature": 0.4
+        }
     }
 
     try:
