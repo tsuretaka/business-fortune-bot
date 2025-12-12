@@ -38,13 +38,18 @@ st.markdown("""
     }
     .main-title {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 700;
         text-align: center;
         background: -webkit-linear-gradient(45deg, #a8c0ff, #3f2b96);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+        .main-title {
+            font-size: 1.8rem;
+        }
     }
     .card {
         background-color: #1f2937;
