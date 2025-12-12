@@ -238,8 +238,9 @@ def get_param(key):
 initial_id = get_param("id")
 initial_date_str = get_param("date")
 
-# 日付の決定
-target_date = datetime.date.today()
+# 日付の決定（パラメータ指定があれば過去/未来の日付で再現、なければ今日/JST）
+JST = datetime.timezone(datetime.timedelta(hours=9))
+target_date = datetime.datetime.now(JST).date()
 is_shared_view = False
 
 if initial_date_str:
@@ -265,9 +266,10 @@ should_run = generate_clicked or (is_shared_view and account_id)
 if should_run:
     if account_id:
         with st.spinner('星の巡りとビジネスロジックを計算中...'):
-            # ボタンを押して再計算した場合は、日付を「今日」にリセットする
+            # ボタンを押して再計算した場合は、日付を「今日(JST)」にリセットする
             if generate_clicked:
-                target_date = datetime.date.today()
+                JST = datetime.timezone(datetime.timedelta(hours=9))
+                target_date = datetime.datetime.now(JST).date()
             
             date_str = target_date.strftime("%Y%m%d")
             
