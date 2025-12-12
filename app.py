@@ -1,8 +1,8 @@
-
 import streamlit as st
 import datetime
 import os
 import sys
+import base64
 
 # srcディレクトリをパスに追加して bot_logic 等を直接importできるようにする
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -182,8 +182,6 @@ st.markdown('<div class="main-title">ビズフォーチュン</div>', unsafe_all
 st.markdown("<p style='text-align: center; color: #9ca3af; margin-bottom: 2rem;'>ビジネスパーソンのための日次行動指針</p>", unsafe_allow_html=True)
 
 # ガイドキャラクターと吹き出し (HTML/CSSで構築)
-# 画像をBase64エンコードして埋め込むことで、パス問題を回避しつつHTML内で表示する
-import base64
 def get_image_base64(path):
     if os.path.exists(path):
         with open(path, "rb") as f:
@@ -207,14 +205,52 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# 入力フォーム
-account_id = st.text_input("X Account ID", placeholder="Ex: elonmusk", help="X (Twitter) のユーザーIDを @ なしで入力してください")
+# --------------------------------------------------------------------------------
+# クエリパラメータとロジック制御
+# --------------------------------------------------------------------------------
 
-if st.button("今日の指針を受け取る"):
+# クエリパラメータ取得
+query_params = st.query_params if hasattr(st, "query_params") else st.experimental_get_query_params()
+def get_param(key):
+    val = query_params.get(key, "")
+    if isinstance(val, list):
+        return val[0] if val else ""
+    return val
+
+initial_id = get_param("id")
+initial_date_str = get_param("date")
+
+# 日付の決定
+target_date = datetime.date.today()
+is_shared_view = False
+
+if initial_date_str:
+    try:
+        target_date = datetime.datetime.strptime(initial_date_str, "%Y%m%d").date()
+        is_shared_view = True
+    except ValueError:
+        pass 
+
+if initial_id:
+    is_shared_view = True
+
+# 入力フォーム (初期値設定)
+account_id = st.text_input("X Account ID", value=initial_id if initial_id else "", placeholder="Ex: elonmusk", help="X (Twitter) のユーザーIDを @ なしで入力してください")
+
+# 実行トリガー
+generate_clicked = st.button("今日の指針を受け取る")
+
+# シェアリンク飛来直後の自動実行判定
+# ただしユーザーがフォームを空にしたら実行しない
+should_run = generate_clicked or (is_shared_view and account_id)
+
+if should_run:
     if account_id:
         with st.spinner('星の巡りとビジネスロジックを計算中...'):
-            # ロジック実行
-            target_date = datetime.date.today()
+            # ボタンを押して再計算した場合は、日付を「今日」にリセットする
+            if generate_clicked:
+                target_date = datetime.date.today()
+            
             date_str = target_date.strftime("%Y%m%d")
             
             try:
@@ -253,19 +289,16 @@ if st.button("今日の指針を受け取る"):
             else:
                  generated_text = generate_fortune_message(api_key, context_data)
 
-            # 結果表示 (Robust UI)
-            # カスタムCSSで st.info の見た目をカード風に変更する
-            # テーマヘッダーなどは普通にMarkdownで表示
+            # --- 結果表示UI ---
             
             st.markdown(f"### 📅 {target_date.strftime('%Y.%m.%d')} | {archetype_label}")
             st.markdown(f"**Theme: {pattern_data['base_theme']} & {pattern_data['focus_area']}**")
             
-            # 結果表示ボックス（st.infoをCSSでハックして使用）
             st.info(generated_text, icon="🔮")
             
             # Xシェアボタン作成
-            # 公開されたアプリのURL（デプロイ後に確定したURLに書き換えてください）
-            app_url = "https://business-fortune-bot-8hk3jrrydpqrhwkytaqxa3.streamlit.app" 
+            base_app_url = "https://business-fortune-bot-8hk3jrrydpqrhwkytaqxa3.streamlit.app" 
+            result_url = f"{base_app_url}?id={account_id}&date={date_str}"
             
             share_text = f"""
 【Web版 ビズフォーチュン】
@@ -274,21 +307,32 @@ if st.button("今日の指針を受け取る"):
 ビジネスパーソンのための日次行動指針を受け取りました。
 あなたも今日の運勢をチェックしてみませんか？
 👇
-{app_url}
+{result_url}
 
 #ビズフォーチュン #BusinessFortune
 """
-            # バックスラッシュを含む処理などはf-stringの外で行う
-            # URLエンコード処理（改行やスペースを適切に変換）
             import urllib.parse
             encoded_text = urllib.parse.quote(share_text.strip())
             share_url = f"https://twitter.com/intent/tweet?text={encoded_text}"
             
-            # 純正APIを使用
             st.link_button("Share on X", share_url, type="primary", use_container_width=True)
+            
+            # シェア閲覧時のナビゲーション
+            if is_shared_view:
+                st.markdown("---")
+                st.markdown(f"<div style='text-align:center'>↑ {account_id} さんの {target_date.strftime('%Y-%m-%d')} の診断結果を表示しています</div>", unsafe_allow_html=True)
+                st.write("")
+                if st.button("自分も占ってみる（トップに戻る）", type="secondary", use_container_width=True):
+                    if hasattr(st, "query_params"):
+                         st.query_params.clear()
+                    else:
+                         st.experimental_set_query_params()
+                    st.rerun()
 
     else:
-        st.warning("Please enter your Account ID.")
+        # ID空でボタン押下
+        if generate_clicked:
+            st.warning("Please enter your Account ID.")
 
 # フッター注意書き
 st.markdown("""
@@ -296,4 +340,3 @@ st.markdown("""
 【このBotの回答はエンタメ目的の“行動ヒント”であり、医学・投資・法律等の専門アドバイスではありません。】
 </div>
 """, unsafe_allow_html=True)
-
