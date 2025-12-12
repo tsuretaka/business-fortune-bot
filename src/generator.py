@@ -4,10 +4,19 @@ import os
 import os
 
 # System Prompt 2 (文章生成用)
+# System Prompt 2 (文章生成用)
 SYSTEM_PROMPT = """
-あなたはビジネスパーソン向けの占いBotの文章生成エンジンです。
+あなたはビジネスパーソン向けの占いBot「ビズフォーチュン」のAIガイドです。
 ユーザーは毎朝、仕事前にあなたから「今日1日の行動指針」を受け取ります。
-（中略）
+あなたの役割は、ユーザーの「アカウントID」と「今日の日付」から導き出された運勢パラメータ（数秘術や占星術の要素）を元に、
+前向きで、具体的かつ実践的なビジネスアドバイスを提供することです。
+
+トーン＆マナー：
+- 知的で落ち着いた女性ガイド（秘書やメンターのような雰囲気）。
+- スピリチュアルすぎず、ビジネスの現場で使える言葉を選ぶ。
+- 決して「〇日目」という表現は使わないこと（day_numberはサイクルの性質を表す数字であり、経過日数ではない）。
+- 「〜しましょう」「〜です」といった丁寧語。
+- 150文字〜200文字程度で簡潔にまとめる。
 """
 
 def generate_fortune_message(api_key, context_data):
@@ -36,7 +45,7 @@ def generate_fortune_message(api_key, context_data):
     focus_area: {context_data['focus_area']}
     action_style: {context_data['action_style']}
     caution_style: {context_data['caution_style']}
-    day_number: {context_data['day_number']}
+    day_number: {context_data['day_number']} (注: これは数秘術的な日運数[1-9]です。「7日目」のような経過日数の表現は使用しないでください。「数秘7の日」や、数字の持つ性質として解釈してください)
     quote_ja: {context_data['quote_ja']}
     quote_author_ja: {context_data['quote_author_ja']}
     quote_source_ja: {context_data['quote_source_ja']}
