@@ -285,7 +285,11 @@ if should_run:
             day_number = calc_day_number(target_date)
             pattern_index = calc_pattern_index(account_id, target_date)
             pattern_data = patterns_db[pattern_index - 1]
-            archetype_label = get_archetype_label(name_number)
+            
+            # 日替わりアーキタイプの計算 (ID値 + 日付値)
+            daily_number = ((name_number + day_number - 1) % 9) + 1
+            archetype_label = get_archetype_label(daily_number)
+            
             quote = choose_quote(pattern_data["quote_category"], account_id, date_str, quotes_db)
 
             context_data = {
