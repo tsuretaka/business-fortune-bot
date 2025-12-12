@@ -3,23 +3,26 @@ import datetime
 import os
 import sys
 import base64
+import pandas as pd
+from streamlit_gsheets import GSheetsConnection
 
 # srcディレクトリをパスに追加して bot_logic 等を直接importできるようにする
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-# また、src/main.py が bot_logic を import しているため、そこでのパス解決も助ける
 sys.path.append(os.path.dirname(__file__))
 
 from src.bot_logic import calc_name_value, calc_name_number, calc_day_number, calc_pattern_index, get_archetype_label
 from src.generator import generate_fortune_message
-# main.py の import エラーを防ぐため、app.py 用に 関数を再定義あるいは直接ロジックを書く方が安全だが
-# 取り急ぎ main.py の依存関係を解決する。
+
+# main.py の import エラーを防ぐための互換インポート
 try:
     from src.main import load_json, choose_quote, QUOTES_FILE, PATTERNS_FILE
 except ModuleNotFoundError:
-    # bot_logic が見つからないと言われる場合の最終手段
     from bot_logic import calc_name_value, calc_name_number, calc_day_number, calc_pattern_index, get_archetype_label
     from generator import generate_fortune_message
     from main import load_json, choose_quote, QUOTES_FILE, PATTERNS_FILE
+
+# タイムゾーン定義 (JST)
+JST = datetime.timezone(datetime.timedelta(hours=9))
 
 # ページ設定
 st.set_page_config(
@@ -29,7 +32,13 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# カスタムCSS (ダークモード・プレミアム感)
+# Google Sheets接続 (ローカル実行時などSecretsがない場合のエラー回避)
+try:
+    conn = st.connection("gsheets", type=GSheetsConnection)
+except Exception:
+    conn = None
+
+# カスタムCSS
 st.markdown("""
 <style>
     .stApp {
@@ -59,24 +68,6 @@ st.markdown("""
         margin-bottom: 2rem;
         border: 1px solid #374151;
     }
-    .theme-header {
-        font-size: 1.2rem;
-        color: #9ca3af;
-        margin-bottom: 0.5rem;
-    }
-    .theme-content {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: #f3f4f6;
-        margin-bottom: 1.5rem;
-    }
-    .quote-box {
-        border-left: 4px solid #6366f1;
-        padding-left: 1rem;
-        margin-top: 1.5rem;
-        font-style: italic;
-        color: #d1d5db;
-    }
     .stButton>button {
         width: 100%;
         background-color: #4f46e5;
@@ -89,7 +80,6 @@ st.markdown("""
         background-color: #4338ca;
         border-color: #4338ca;
     }
-    /* X Share Button Styling Override */
     a[kind="primary"] {
         background-color: #1DA1F2 !important;
         border-color: #1DA1F2 !important;
@@ -100,8 +90,6 @@ st.markdown("""
         background-color: #0d8bd9 !important;
         border-color: #0d8bd9 !important;
     }
-    
-    /* st.info Customization */
     .stAlert {
         background-color: #1f2937;
         color: #e0e0e0;
@@ -112,7 +100,6 @@ st.markdown("""
         color: #e0e0e0 !important;
         line-height: 1.6;
     }
-    /* Input Label Visibility Fix */
     .stTextInput label {
         color: #ffffff !important;
         font-weight: 600;
@@ -121,10 +108,9 @@ st.markdown("""
     .stTextInput div[data-testid="stMarkdownContainer"] p {
          color: #ffffff !important; 
     }
-    /* 吹き出しとガイド画像のスタイル (Flexbox版) */
     .guide-container {
         display: flex;
-        align-items: flex-start; /* 上揃え、あるいは center で中央揃え */
+        align-items: flex-start;
         gap: 1rem;
         margin-bottom: 2rem;
         background-color: transparent;
@@ -154,7 +140,6 @@ st.markdown("""
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         flex-grow: 1;
     }
-    /* 吹き出しのしっぽ */
     .speech-bubble::after {
         content: '';
         position: absolute;
@@ -199,7 +184,7 @@ st.markdown("""
 st.markdown('<div class="main-title">ビズフォーチュン</div>', unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #9ca3af; margin-bottom: 2rem;'>ビジネスパーソンのための日次行動指針</p>", unsafe_allow_html=True)
 
-# ガイドキャラクターと吹き出し (HTML/CSSで構築)
+# ガイドキャラクター
 def get_image_base64(path):
     if os.path.exists(path):
         with open(path, "rb") as f:
@@ -208,7 +193,6 @@ def get_image_base64(path):
     return None
 
 img_b64 = get_image_base64("assets/guide.jpg")
-# 画像がない場合のフォールバックアイコン
 img_html = f'<img src="data:image/jpeg;base64,{img_b64}" alt="Guide">' if img_b64 else '<div style="font-size:3rem;">👩‍💼</div>'
 
 st.markdown(f"""
@@ -223,10 +207,6 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------------------------------------
-# クエリパラメータとロジック制御
-# --------------------------------------------------------------------------------
-
 # クエリパラメータ取得
 query_params = st.query_params if hasattr(st, "query_params") else st.experimental_get_query_params()
 def get_param(key):
@@ -238,8 +218,7 @@ def get_param(key):
 initial_id = get_param("id")
 initial_date_str = get_param("date")
 
-# 日付の決定（パラメータ指定があれば過去/未来の日付で再現、なければ今日/JST）
-JST = datetime.timezone(datetime.timedelta(hours=9))
+# 日付決定 (JST基準)
 target_date = datetime.datetime.now(JST).date()
 is_shared_view = False
 
@@ -253,22 +232,17 @@ if initial_date_str:
 if initial_id:
     is_shared_view = True
 
-# 入力フォーム (初期値設定)
+# 入力フォーム
 account_id = st.text_input("X Account ID", value=initial_id if initial_id else "", placeholder="Ex: elonmusk", help="X (Twitter) のユーザーIDを @ なしで入力してください")
 
-# 実行トリガー
+# トリガー
 generate_clicked = st.button("今日の指針を受け取る")
-
-# シェアリンク飛来直後の自動実行判定
-# ただしユーザーがフォームを空にしたら実行しない
 should_run = generate_clicked or (is_shared_view and account_id)
 
 if should_run:
     if account_id:
         with st.spinner('星の巡りとビジネスロジックを計算中...'):
-            # ボタンを押して再計算した場合は、日付を「今日(JST)」にリセットする
             if generate_clicked:
-                JST = datetime.timezone(datetime.timedelta(hours=9))
                 target_date = datetime.datetime.now(JST).date()
             
             date_str = target_date.strftime("%Y%m%d")
@@ -286,7 +260,7 @@ if should_run:
             pattern_index = calc_pattern_index(account_id, target_date)
             pattern_data = patterns_db[pattern_index - 1]
             
-            # 日替わりアーキタイプの計算 (ID値 + 日付値)
+            # 日替わりアーキタイプ (Name + Day)
             daily_number = ((name_number + day_number - 1) % 9) + 1
             archetype_label = get_archetype_label(daily_number)
             
@@ -305,6 +279,27 @@ if should_run:
                 "quote_source_ja": quote.get("source_ja", quote.get("quote_source_ja"))
             }
 
+            # ログ記録 (Google Sheets)
+            if conn:
+                try:
+                    # 最新データを読み込み(ttl=0)
+                    # Worksheet名は指定なし(デフォルトシート)
+                    existing_data = conn.read(ttl=0)
+                    
+                    new_log = pd.DataFrame([{
+                        "timestamp": datetime.datetime.now(JST).strftime("%Y-%m-%d %H:%M:%S"),
+                        "account_id": account_id,
+                        "archetype": archetype_label,
+                        "theme": f"{pattern_data['base_theme']} / {pattern_data['focus_area']}"
+                    }])
+                    
+                    # 結合して更新
+                    updated_df = pd.concat([existing_data, new_log], ignore_index=True)
+                    conn.update(data=updated_df)
+                except Exception as e:
+                    # ログエラーはユーザーに見せない（コンソールのみ）
+                    print(f"Logging Error: {e}")
+
             # AI生成
             api_key = os.environ.get("GEMINI_API_KEY")
             if not api_key:
@@ -313,14 +308,12 @@ if should_run:
             else:
                  generated_text = generate_fortune_message(api_key, context_data)
 
-            # --- 結果表示UI ---
-            
+            # 結果表示
             st.markdown(f"### 📅 {target_date.strftime('%Y.%m.%d')} | {archetype_label}")
             st.markdown(f"**Theme: {pattern_data['base_theme']} & {pattern_data['focus_area']}**")
             
             st.info(generated_text, icon="🔮")
             
-            # Xシェアボタン作成
             base_app_url = "https://business-fortune-bot.streamlit.app" 
             result_url = f"{base_app_url}?id={account_id}&date={date_str}"
             
@@ -341,7 +334,6 @@ if should_run:
             
             st.link_button("Share on X", share_url, type="primary", use_container_width=True)
             
-            # シェア閲覧時のナビゲーション
             if is_shared_view:
                 st.markdown("---")
                 st.markdown(f"<div style='text-align:center'>↑ {account_id} さんの {target_date.strftime('%Y-%m-%d')} の診断結果を表示しています</div>", unsafe_allow_html=True)
@@ -354,13 +346,21 @@ if should_run:
                     st.rerun()
 
     else:
-        # ID空でボタン押下
         if generate_clicked:
             st.warning("Please enter your Account ID.")
 
-# フッター注意書き
-st.markdown("""
+# フッター注意書きとカウンタ
+count_display = ""
+if conn:
+    try:
+        # カウンター表示用はキャッシュを効かせても良いが、リアルタイム性重視で短めに
+        df_count = conn.read(ttl=10)
+        count_display = f" | 累計鑑定数: {len(df_count):,}回"
+    except:
+        pass
+
+st.markdown(f"""
 <div style="text-align: center; font-size: 0.75rem; color: #6b7280; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #374151;">
-【このBotの回答はエンタメ目的の“行動ヒント”であり、医学・投資・法律等の専門アドバイスではありません。】
+【このBotの回答はエンタメ目的の“行動ヒント”であり、医学・投資・法律等の専門アドバイスではありません。】{count_display}
 </div>
 """, unsafe_allow_html=True)
